@@ -47,6 +47,28 @@ const App = () => {
     // setBackgroundImage(getBackgroundImage(data.weather[0].main)); // Set background image based on weather
   };
 
+  function sunrise (unixTimestamp){
+      // Convert Unix timestamp to milliseconds
+      var milliseconds = unixTimestamp * 1000;
+
+    // Adjust for Indian Standard Time (IST) - UTC+5:30
+    var ISTOffset = 5.5 * 60 * 60 * 1000; // 5.5 hours in milliseconds
+    var ISTMilliseconds = milliseconds + ISTOffset;
+
+    // Calculate hours, minutes, and seconds in IST
+    var ISTHours = Math.floor((ISTMilliseconds / (1000 * 60 * 60)) % 24);
+    var ISTMinutes = Math.floor((ISTMilliseconds / (1000 * 60)) % 60);
+    var ISTSeconds = Math.floor((ISTMilliseconds / 1000) % 60);
+
+    // Format the result
+    var formattedTime = 
+        (ISTHours < 10 ? "0" : "") + ISTHours + ":" + 
+        (ISTMinutes < 10 ? "0" : "") + ISTMinutes + ":" + 
+        (ISTSeconds < 10 ? "0" : "") + ISTSeconds;
+
+    return formattedTime;
+  
+  };
   // const getBackgroundImage = (weatherCondition) => {
   //   const currentTime = new Date().getHours(); // Get current hour (0-23)
   //   let backgroundImage = '';
@@ -95,7 +117,7 @@ const App = () => {
     <div className="app" >
 
       <h1>Weather App</h1>
-
+     
       <form onSubmit={handleLocationSubmit}>
         <input
           type="text"
@@ -113,7 +135,11 @@ const App = () => {
             <>
               <p>Location: {weatherData.name}</p>
               <p>Temperature: {weatherData.main.temp}°C</p>
+              <p>Pressure:{weatherData.main.pressure} mbar</p>
               <p>Weather: {weatherData.weather[0].main}</p>
+              <p>Coordinates:{weatherData.coord.lon},{weatherData.coord.lat}</p>
+              <p>Sunrise:{sunrise(weatherData.sys.sunrise)}</p>
+              <p>Sunset:{sunrise(weatherData.sys.sunset)}</p>
             </>
           )}
         </>

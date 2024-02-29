@@ -19,3 +19,6 @@ export const fetchWeather = async (city) => {
     }
 };
 
+// //Air quality
+// const API_KEY = 'b6c17b881eac58628614ec7a05ac52df';
+// const API_URL = ``;

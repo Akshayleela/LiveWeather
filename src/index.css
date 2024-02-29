@@ -19,6 +19,9 @@ body {
   width: 50%;
   margin-inline: auto;
   margin-top: 10%;
+  background-color: rgb(176 176 176 / 85%);
+  color: brown;
+  font-weight: 700;
 }
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
